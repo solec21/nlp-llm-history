@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lingüística computacional y Modelos fundacionales (2017–2025)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Phosphor Icons (Web Font) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #fcfcfc; 
+            color: #1a1a1a; 
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .modern-card {
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .modern-card:hover {
+            border-color: #1a1a1a;
+            box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-btn {
+            border: 1px solid #e5e7eb;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .nav-btn:hover {
+            background-color: #f9fafb;
+            border-color: #1a1a1a;
+        }
+        .nav-btn.selected {
+            background-color: #1a1a1a;
+            color: white;
+            border-color: #1a1a1a;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f9fafb; }
+        ::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d1d5db; }
+
+        .line-clamp-1 {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
+        }
+    </style>
+    <!-- Chosen Palette: Pearl Minimalist Refined -->
+    <!-- Application Structure Plan: 
+         1. Header: Flujo vertical. Título solicitado "Lingüística computacional y Modelos fundacionales". Créditos y fuentes debajo.
+         2. Navigation: Tabs para Timeline, Análisis, Glosario y Bibliografía.
+         3. Timeline View: Sidebar con resúmenes breves. Detalle con definiciones académicas por concepto clave.
+         4. Analysis View: Gráfico interactivo con explicación explícita debajo del gráfico sobre las "caídas" (eficiencia vs escala).
+         5. Glossary: Términos fundamentales recuperados e integrados.
+    -->
+</head>
+<body class="min-h-screen flex flex-col p-4 md:p-10 selection:bg-gray-900 selection:text-white">
+
+    <div class="max-w-6xl mx-auto w-full flex-grow flex flex-col">
+        
+        <!-- Header -->
+        <header class="mb-12 border-b border-gray-100 pb-10 flex flex-col gap-6">
+            <div class="space-y-3">
+                <div class="flex items-center gap-4">
+                    <i class="ph ph-cpu text-4xl text-gray-900"></i>
+                    <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-gray-900 leading-tight">Lingüística computacional y Modelos fundacionales</h1>
+                </div>
+                <p class="text-sm font-medium text-gray-400 uppercase tracking-[0.2em]">Cronología del Desarrollo 2017—2025</p>
+            </div>
+            
+            <div class="space-y-3 border-l-2 border-gray-100 pl-6">
+                 <span class="text-[11px] font-semibold text-gray-500 uppercase block tracking-wide">
+                    Basado en la selección de <span class="text-gray-900">15 Papers That Defined NLP & LLMs</span> de <span class="text-gray-900 underline">Naresh Edagotti</span>
+                 </span>
+                 <p class="text-[10px] leading-relaxed text-gray-400 font-medium max-w-2xl">
+                    Créditos: <span class="text-gray-600 font-bold">Soledad Caballero</span> con asistencia técnica de <span class="text-gray-600">Gemini 3.0</span> y <span class="text-gray-600">Naresh Edagotti</span> vía <span class="text-gray-600">Analytics Vidhya</span>
+                 </p>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="flex flex-wrap gap-2 mb-12 border-b border-gray-50 pb-6" id="nav-container">
+            <!-- Inyectado vía JS -->
+        </nav>
+
+        <!-- Main Content Area -->
+        <main id="app-content" class="flex-grow relative min-h-[500px]">
+            <!-- Dynamic Content -->
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-20 pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em]">
+            <div class="flex items-center gap-2">
+                <i class="ph-bold ph-bookmarks text-gray-900 text-lg"></i>
+                <span>Referencias para seres curiosos</span>
+            </div>
+            <div class="mt-4 md:mt-0 opacity-60">
+                © 2025 Visualización de Datos Académica
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Logic & Data -->
+    <script>
+        const papers = [
+            { 
+                id: 1, year: "2017", title: "Attention Is All You Need", authors: "Vaswani et al.", 
+                concept: "Arquitectura Transformer", 
+                conceptDefinition: "Arquitectura de red neuronal basada únicamente en mecanismos de atención, prescindiendo de la recurrencia y las convoluciones. Utiliza la auto-atención (self-attention) para calcular representaciones de entrada y salida, permitiendo una paralelización masiva y reduciendo los tiempos de entrenamiento.",
+                category: "Arquitectura", summary: "El origen del Transformer.",
+                impact: "El hito fundacional. Eliminó las limitaciones de las RNNs y permitió el entrenamiento de modelos a una escala global antes impensable.", 
+                params: 0.065, 
+                citation: "Vaswani, A., et al. (2017). Attention is all you need. Advances in Neural Information Processing Systems." 
+            },
+            { 
+                id: 2, year: "2018", title: "BERT", authors: "Devlin et al.", 
+                concept: "Representaciones Bidireccionales", 
+                conceptDefinition: "Modelo diseñado para pre-entrenar representaciones bidireccionales profundas condicionando conjuntamente el contexto izquierdo y derecho en todas las capas. Permite que el modelo aprenda la relación entre una palabra y todo su entorno textual simultáneamente.",
+                category: "Arquitectura", summary: "Contexto bidireccional profundo.",
+                impact: "Revolucionó la comprensión del lenguaje natural, permitiendo a las máquinas captar matices contextuales sutiles.", 
+                params: 0.34, 
+                citation: "Devlin, J., et al. (2018). BERT: Pre-training of deep bidirectional transformers." 
+            },
+            { 
+                id: 3, year: "2020", title: "GPT-3", authors: "Brown et al. (OpenAI)", 
+                concept: "Aprendizaje Few-Shot", 
+                conceptDefinition: "Capacidad de un modelo de lenguaje de escala masiva para realizar tareas nuevas después de observar solo unos pocos ejemplos en el prompt de entrada, sin necesidad de actualizar sus parámetros internos mediante un nuevo entrenamiento.",
+                category: "Escala", summary: "La era de la escala masiva.",
+                impact: "Demostró que el escalamiento extremo genera capacidades emergentes de razonamiento y creatividad sin entrenamiento específico.", 
+                params: 175, 
+                citation: "Brown, T. B., et al. (2020). Language models are few-shot learners." 
+            },
+            { 
+                id: 4, year: "2020", title: "T5", authors: "Raffel et al.", 
+                concept: "Marco Texto-a-Texto (Text-to-Text)", 
+                conceptDefinition: "Enfoque unificado donde cada tarea de procesamiento de lenguaje se convierte en un formato idéntico de entrada de texto y salida de texto. Esto permite aplicar el mismo modelo a traducción, clasificación y resumen indistintamente.",
+                category: "Arquitectura", summary: "Unificación de tareas NLP.",
+                impact: "Simplificó drásticamente el flujo de trabajo en ingeniería de lenguaje al estandarizar el consumo y generación de datos.", 
+                params: 11, 
+                citation: "Raffel, C., et al. (2020). Exploring the limits of transfer learning with T5." 
+            },
+            { 
+                id: 5, year: "2020", title: "Scaling Laws", authors: "Kaplan et al.", 
+                concept: "Leyes de Escala de Potencia", 
+                conceptDefinition: "Relaciones matemáticas que describen cómo el rendimiento de un modelo disminuye de forma predecible al aumentar el cómputo, el tamaño de los datos y el número de parámetros de forma coordinada.",
+                category: "Escala", summary: "Rendimiento predecible.",
+                impact: "Proporcionó la base científica para justificar las inversiones masivas en supercomputación para la IA.", 
+                params: null, 
+                citation: "Kaplan, J., et al. (2020). Scaling laws for neural language models." 
+            },
+            { 
+                id: 6, year: "2020", title: "RAG", authors: "Lewis et al.", 
+                concept: "Generación Aumentada por Recuperación", 
+                conceptDefinition: "Arquitectura que combina la memoria paramétrica (el modelo) con una memoria no paramétrica externa (documentos). Permite al modelo buscar información externa antes de dar una respuesta.",
+                category: "Aumentación", summary: "IA con conocimiento externo.",
+                impact: "Redujo drásticamente las alucinaciones y permitió a los modelos trabajar con información actualizada en tiempo real.", 
+                params: 0.4, 
+                citation: "Lewis, P., et al. (2020). Retrieval-augmented generation for knowledge-intensive tasks." 
+            },
+            { 
+                id: 7, year: "2021", title: "LoRA", authors: "Hu et al.", 
+                concept: "Adaptación de Bajo Rango (Low-Rank)", 
+                conceptDefinition: "Método de ajuste fino eficiente que congela los pesos del modelo pre-entrenado e inyecta matrices de rango bajo entrenables, reduciendo drásticamente los requisitos de memoria.",
+                category: "Arquitectura", summary: "Personalización de bajo coste.",
+                impact: "Democratizó la personalización de modelos masivos, permitiendo ajustarlos en hardware de consumo doméstico.", 
+                params: null, 
+                citation: "Hu, E. J., et al. (2021). LoRA: Low-rank adaptation of large language models." 
+            },
+            { 
+                id: 8, year: "2022", title: "Chain of Thought", authors: "Wei et al.", 
+                concept: "Cadena de Pensamiento (CoT)", 
+                conceptDefinition: "Técnica de inducción que solicita al modelo generar una serie de pasos de razonamiento intermedios explícitos antes de producir la respuesta final a un problema complejo.",
+                category: "Razonamiento", summary: "Pensamiento paso a paso.",
+                impact: "Desbloqueó capacidades críticas en tareas de matemáticas y lógica que antes eran inalcanzables para los LLMs.", 
+                params: 540, 
+                citation: "Wei, J., et al. (2022). Chain of thought prompting elicits reasoning." 
+            },
+            { 
+                id: 9, year: "2022", title: "Self-Consistency", authors: "Wang et al.", 
+                concept: "Votación por Consistencia", 
+                conceptDefinition: "Estrategia que genera múltiples caminos de razonamiento diferentes para una misma pregunta y selecciona la respuesta final mediante una votación mayoritaria entre ellos.",
+                category: "Razonamiento", summary: "Fiabilidad en el razonamiento.",
+                impact: "Mejoró significativamente la robustez de las respuestas del modelo en tareas de razonamiento lógico multi-paso.", 
+                params: null, 
+                citation: "Wang, X., et al. (2022). Self-consistency improves CoT reasoning." 
+            },
+            { 
+                id: 10, year: "2022", title: "Induction Heads", authors: "Olsson et al.", 
+                concept: "Interpretabilidad Mecánica", 
+                conceptDefinition: "Identificación de circuitos neuronales específicos responsables de copiar patrones y realizar aprendizaje en contexto durante la inferencia, sin cambiar los pesos permanentes.",
+                category: "Análisis", summary: "Criptografía del aprendizaje.",
+                impact: "Proporcionó una explicación científica de cómo los modelos aprenden 'al vuelo' a partir de los datos del prompt.", 
+                params: null, 
+                citation: "Olsson, C., et al. (2022). In-context learning and induction heads." 
+            },
+            { 
+                id: 11, year: "2022", title: "InstructGPT", authors: "Ouyang et al.", 
+                concept: "Alineación mediante RLHF", 
+                conceptDefinition: "Método para alinear modelos con la intención del usuario mediante el aprendizaje por refuerzo a partir de retroalimentación humana, optimizando utilidad y seguridad.",
+                category: "Alineación", summary: "IA útil y segura.",
+                impact: "Permitió que los modelos pasaran de ser meros predictores de texto a asistentes útiles (Base de ChatGPT).", 
+                params: 175, 
+                citation: "Ouyang, L., et al. (2022). Training language models to follow instructions." 
+            },
+            { 
+                id: 12, year: "2023", title: "Toolformer", authors: "Schick et al. (Meta)", 
+                concept: "Auto-aprendizaje de Herramientas", 
+                conceptDefinition: "Modelo entrenado para decidir autónomamente qué APIs externas usar, cuándo llamarlas y cómo integrar sus respuestas en su predicción final de texto.",
+                category: "Aumentación", summary: "Uso autónomo de APIs.",
+                impact: "Inició el camino hacia los 'agentes de IA' capaces de interactuar con el mundo digital externo.", 
+                params: 6.7, 
+                citation: "Schick, T., et al. (2023). Toolformer: LMs can teach themselves to use tools." 
+            },
+            { 
+                id: 13, year: "2022", title: "ColBERTv2", authors: "Santhanam et al.", 
+                concept: "Interacción Tardía (Late Interaction)", 
+                conceptDefinition: "Arquitectura de recuperación que utiliza representaciones multi-vectoriales a nivel de token para una búsqueda extremadamente eficiente en colecciones de datos masivas.",
+                category: "Aumentación", summary: "Búsqueda veloz y precisa.",
+                impact: "Optimizó los sistemas de recuperación necesarios para que las aplicaciones RAG funcionen a escala industrial.", 
+                params: 0.11, 
+                citation: "Santhanam, K., et al. (2021). ColBERTv2: Effective and efficient retrieval." 
+            },
+            { 
+                id: 14, year: "2023", title: "LLM-as-a-Judge", authors: "Zheng et al.", 
+                concept: "Evaluación Escalable", 
+                conceptDefinition: "Uso de un modelo de lenguaje fuerte para evaluar automáticamente el desempeño de otros modelos en preguntas abiertas, logrando una alta concordancia con humanos.",
+                category: "Evaluación", summary: "IA evaluando a otra IA.",
+                impact: "Resolvió el cuello de botella de la evaluación humana, acelerando el ciclo de mejora de nuevos modelos.", 
+                params: null, 
+                citation: "Zheng, L., et al. (2023). Judging LLM-as-a-judge with MT-bench." 
+            },
+            { 
+                id: 15, year: "2025", title: "DeepSeek-R1", authors: "DeepSeek AI", 
+                concept: "Razonamiento por Refuerzo Puro", 
+                conceptDefinition: "Técnica que incentiva el razonamiento reflexivo nativo mediante aprendizaje por refuerzo a gran escala, permitiendo al modelo 'pensar' antes de responder.",
+                category: "Razonamiento", summary: "Razonamiento puro y abierto.",
+                impact: "Estado actual del arte en razonamiento abierto, logrando paridad con modelos propietarios mediante optimización algorítmica.", 
+                params: 671, 
+                citation: "DeepSeek-AI. (2025). DeepSeek-R1: Incentivizing reasoning capability." 
+            }
+        ];
+
+        const glossary = [
+            { term: "Lingüística Computacional", def: "Campo interdisciplinario enfocado en el modelado computacional del lenguaje natural desde una perspectiva lingüística y estadística." },
+            { term: "Modelos Fundacionales", def: "Modelos base entrenados en datasets masivos que pueden adaptarse a múltiples tareas mediante mínima especialización posterior." },
+            { term: "Tokenización", def: "Unidad mínima de texto (palabras o caracteres) procesada por el modelo. Es el puente entre el lenguaje humano y el numérico." },
+            { term: "Inferencia", def: "Proceso donde el modelo genera una predicción o salida basándose en una entrada de datos proporcionada por el usuario." },
+            { term: "Prompting", def: "Interacción mediante lenguaje natural para guiar el comportamiento y las respuestas de un modelo fundacional." },
+            { term: "Atención (Attention)", def: "Mecanismo que permite al modelo priorizar ciertas partes de la entrada sobre otras al generar cada palabra de salida." },
+            { term: "Fine-tuning", def: "Proceso de ajustar un modelo pre-entrenado en un conjunto de datos más pequeño y específico para una tarea particular." },
+            { term: "Zero-Shot", def: "Capacidad de un modelo para realizar una tarea sin haber visto nunca un ejemplo previo de dicha tarea durante el entrenamiento." }
+        ];
+
+        const reportCitation = "Analytics Vidhya. (2025). 15 Papers That Defined NLP & LLMs (2017–2025). Compilado por Naresh Edagotti.";
+
+        const state = { view: 'timeline', selectedId: 1, filter: 'Todos' };
+
+        function init() { renderNav(); renderContent(); }
+
+        function renderNav() {
+            const container = document.getElementById('nav-container');
+            const tabs = [
+                { id: 'timeline', icon: 'ph-clock', label: 'Timeline' },
+                { id: 'analysis', icon: 'ph-chart-line', label: 'Métricas de Escala' },
+                { id: 'glossary', icon: 'ph-info', label: 'Glosario' },
+                { id: 'biblio', icon: 'ph-quotes', label: 'Citas APA 7' }
+            ];
+            container.innerHTML = tabs.map(tab => `
+                <button onclick="setState('view', '${tab.id}')" class="nav-btn px-6 py-2.5 rounded-full text-xs transition-all ${state.view === tab.id ? 'selected' : 'bg-white text-gray-500'}">
+                    <i class="ph ${tab.icon} mr-2"></i>${tab.label}
+                </button>
+            `).join('');
+        }
+
+        function renderContent() {
+            const main = document.getElementById('app-content');
+            main.className = "fade-in";
+            if (state.view === 'timeline') renderTimeline(main);
+            else if (state.view === 'analysis') renderAnalysis(main);
+            else if (state.view === 'glossary') renderGlossary(main);
+            else if (state.view === 'biblio') renderBiblio(main);
+        }
+
+        function renderTimeline(container) {
+            const categories = ["Todos", ...new Set(papers.map(p => p.category))];
+            const filtered = state.filter === 'Todos' ? papers : papers.filter(p => p.category === state.filter);
+            const selected = papers.find(p => p.id === state.selectedId) || papers[0];
+
+            container.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <div class="lg:col-span-4 space-y-2">
+                        <div class="flex flex-wrap gap-1 mb-6">
+                            ${categories.map(cat => `
+                                <button onclick="setFilter('${cat}')" class="text-[9px] font-bold uppercase px-3 py-1 border rounded-full transition-all ${state.filter === cat ? 'bg-black text-white border-black' : 'bg-white text-gray-400 border-gray-100 hover:border-gray-400'}">${cat}</button>
+                            `).join('')}
+                        </div>
+                        <div class="space-y-2 overflow-y-auto max-h-[550px] pr-2">
+                            ${filtered.map(p => `
+                                <div onclick="setState('selectedId', ${p.id})" class="p-4 cursor-pointer rounded-xl border transition-all ${state.selectedId === p.id ? 'border-black bg-white shadow-sm ring-1 ring-black' : 'border-gray-50 hover:border-gray-200'}">
+                                    <div class="flex justify-between items-start mb-1">
+                                        <span class="text-[8px] font-bold text-gray-300 uppercase tracking-widest">${p.year}</span>
+                                        <span class="text-[8px] font-bold text-gray-400 uppercase">${p.category}</span>
+                                    </div>
+                                    <h3 class="text-sm font-semibold text-gray-800 leading-tight mb-1">${p.title}</h3>
+                                    <p class="text-[10px] text-gray-400 italic line-clamp-1">— ${p.summary}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="lg:col-span-8 sticky top-4">
+                        <div class="modern-card p-8 md:p-12 rounded-[2rem] bg-white h-full flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-8">
+                                    <span class="text-[10px] font-bold text-gray-400 border border-gray-100 px-3 py-1 rounded-full uppercase tracking-wider">Hito ${selected.id}</span>
+                                    <span class="text-3xl font-light text-gray-100">/ ${selected.year}</span>
+                                </div>
+                                <h2 class="text-3xl md:text-4xl font-bold leading-tight mb-2 text-gray-900">${selected.title}</h2>
+                                <h3 class="text-base font-medium text-gray-400 mb-8 max-w-xl italic">${selected.authors}</h3>
+                                
+                                <div class="space-y-8 border-t border-gray-50 pt-8 mb-8">
+                                    <div>
+                                        <h4 class="text-[9px] font-bold uppercase text-gray-400 mb-3 tracking-[0.2em]">Concepto Clave</h4>
+                                        <p class="text-lg font-bold text-gray-900 mb-2">${selected.concept}</p>
+                                        <p class="text-sm font-medium text-gray-500 leading-relaxed bg-gray-50 p-4 rounded-xl border-l-4 border-gray-900 shadow-sm">
+                                            ${selected.conceptDefinition}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-[9px] font-bold uppercase text-gray-400 mb-3 tracking-[0.2em]">Impacto en el Desarrollo</h4>
+                                        <p class="text-sm font-medium text-gray-500 leading-relaxed">${selected.impact}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 mt-6">
+                                <p class="font-mono text-[9px] text-gray-400 mb-4 leading-relaxed line-clamp-1 italic">${selected.citation}</p>
+                                <button onclick="copyToClipboard('${selected.citation.replace(/'/g, "\\'")}')" class="w-full py-3.5 bg-gray-900 text-white rounded-xl text-[10px] font-bold hover:bg-black transition-all uppercase tracking-[0.2em]">Copiar Cita APA 7</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderAnalysis(container) {
+            const chartData = papers.filter(p => p.params !== null);
+            container.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+                    <div class="lg:col-span-4 space-y-6 lg:sticky lg:top-4">
+                        <h2 class="text-3xl font-bold text-gray-900 tracking-tight">Dualidad de la Evolución</h2>
+                        <p class="text-sm font-medium text-gray-400 leading-relaxed text-balance">
+                            Este gráfico visualiza la tensión histórica en el campo: el **Escalamiento Masivo** (picos) frente a la **Eficiencia Arquitectónica** (valles).
+                        </p>
+                        <div class="p-6 bg-gray-50 rounded-2xl border border-gray-100 space-y-4 shadow-sm opacity-60">
+                             <p class="text-[10px] text-gray-400 italic">Basado en Scaling Laws de Kaplan et al. (2020) & Analytics Vidhya.</p>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-8 space-y-8">
+                        <div class="modern-card p-8 rounded-[2rem] bg-white h-[450px] flex items-center justify-center">
+                            <div class="chart-container"><canvas id="scaleChart"></canvas></div>
+                        </div>
+                        
+                        <div class="px-6 py-8 bg-gray-50 rounded-[2rem] border border-gray-100 fade-in">
+                            <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                <i class="ph-bold ph-question text-gray-400"></i> ¿Por qué hay caídas?
+                            </h3>
+                            <p class="text-sm font-medium text-gray-600 leading-relaxed mb-6">
+                                Papers como <strong>RAG (2020)</strong> o <strong>ColBERTv2 (2021)</strong> no buscan modelos más grandes, sino mejores métodos para usar conocimiento externo, logrando inteligencia superior con modelos más pequeños y rápidos.
+                            </p>
+                            <p class="text-[11px] font-semibold text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                                <i class="ph-bold ph-link"></i> Fuente: Kaplan et al. (2020) & Naresh Edagotti.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            setTimeout(() => {
+                const ctx = document.getElementById('scaleChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: chartData.map(p => p.title),
+                        datasets: [{
+                            label: 'Billones de Parámetros',
+                            data: chartData.map(p => p.params),
+                            borderColor: '#1a1a1a',
+                            borderWidth: 1.5,
+                            pointBackgroundColor: '#ffffff',
+                            pointBorderColor: '#1a1a1a',
+                            pointRadius: 6,
+                            fill: true,
+                            backgroundColor: 'rgba(26, 26, 26, 0.01)',
+                            tension: 0.3
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        scales: {
+                            y: { 
+                                type: 'logarithmic', 
+                                grid: { color: '#fcfcfc' }, 
+                                ticks: { font: { size: 9 }, callback: function(v) { return v + "B"; } } 
+                            },
+                            x: { grid: { display: false }, ticks: { font: { size: 9 } } }
+                        },
+                        plugins: { 
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: '#1a1a1a',
+                                titleFont: { size: 13, weight: 700 },
+                                bodyFont: { size: 12 },
+                                padding: 12,
+                                cornerRadius: 8,
+                                callbacks: { label: (c) => `${c.raw} Billones de Parámetros` }
+                            }
+                        }
+                    }
+                });
+            }, 50);
+        }
+
+        function renderGlossary(container) {
+            container.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    ${glossary.map(item => `
+                        <div class="modern-card p-8 rounded-3xl h-full flex flex-col">
+                            <h3 class="text-base font-bold text-gray-900 mb-4 tracking-tight uppercase border-b border-gray-50 pb-2">${item.term}</h3>
+                            <p class="text-xs font-medium text-gray-500 leading-relaxed flex-grow">${item.def}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function renderBiblio(container) {
+            container.innerHTML = `
+                <div class="max-w-3xl mx-auto space-y-12">
+                    <div class="modern-card p-10 rounded-3xl">
+                        <h3 class="text-[10px] font-bold uppercase text-gray-300 mb-4 tracking-[0.2em]">Referencia Fuente Original</h3>
+                        <p class="font-serif text-lg text-gray-900 mb-6 leading-relaxed italic">${reportCitation}</p>
+                        <button onclick="copyToClipboard('${reportCitation}')" class="px-6 py-2 border border-gray-100 rounded-full text-[10px] font-bold hover:border-black uppercase tracking-widest">Copiar Fuente Principal</button>
+                    </div>
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-bold text-gray-900 px-4 mb-6 tracking-tight">Bibliografía Académica (APA 7)</h3>
+                        ${papers.map(p => `
+                            <div class="modern-card p-6 rounded-2xl flex flex-col md:flex-row gap-6 items-start justify-between">
+                                <div class="flex-grow">
+                                    <span class="text-[8px] font-bold text-gray-200 uppercase mb-1 block">${p.year} / ID:${p.id}</span>
+                                    <p class="font-serif text-sm text-gray-700 leading-relaxed">${p.citation}</p>
+                                </div>
+                                <button onclick="copyToClipboard('${p.citation.replace(/'/g, "\\'")}')" class="p-3 text-gray-300 hover:text-black transition-colors"><i class="ph-bold ph-copy text-xl"></i></button>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function setState(key, value) { state[key] = value; renderNav(); renderContent(); }
+        function setFilter(cat) { state.filter = cat; renderContent(); }
+        function copyToClipboard(text) {
+            const temp = document.createElement("textarea"); temp.value = text; document.body.appendChild(temp);
+            temp.select(); document.execCommand("copy"); document.body.removeChild(temp);
+            const t = document.createElement('div');
+            t.className = 'fixed bottom-8 right-8 bg-gray-900 text-white px-6 py-3 rounded-full text-[10px] font-bold z-50 animate-bounce flex items-center gap-2 shadow-2xl';
+            t.innerHTML = '<i class="ph-bold ph-check"></i> REFERENCIA COPIADA';
+            document.body.appendChild(t); setTimeout(() => t.remove(), 2000);
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

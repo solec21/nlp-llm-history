@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com/3.4.1"></script>
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Phosphor Icons (Web Font) -->
+    <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- Font: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -50,10 +50,10 @@
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            height: 400px;
-            max-height: 50vh;
+            height: 450px;
+            max-height: 60vh;
         }
         
         .fade-in { animation: fadeIn 0.4s ease-out; }
@@ -76,7 +76,7 @@
 
     <div class="max-w-6xl mx-auto w-full flex-grow flex flex-col text-left">
         
-        <!-- Header con flujo puramente vertical -->
+        <!-- Header con flujo vertical -->
         <header class="mb-12 border-b border-gray-100 pb-10 flex flex-col gap-6">
             <div class="space-y-3">
                 <div class="flex items-center gap-4">
@@ -91,22 +91,22 @@
                     Basado en la selección de <span class="text-gray-900">15 Papers That Defined NLP & LLMs</span> de <span class="text-gray-900 underline">Naresh Edagotti</span>
                  </span>
                  <p class="text-[10px] leading-relaxed text-gray-400 font-medium max-w-2xl">
-                    Créditos: <span class="text-gray-600 font-bold">Soledad Caballero</span> con asistencia técnica de <span class="text-gray-600">Gemini 3.0</span> y <span class="text-gray-600 font-semibold">Naresh Edagotti</span> vía <span class="text-gray-600 italic">Analytics Vidhya</span>
+                    Créditos: <span class="text-gray-600 font-bold">Soledad Caballero</span> con asistencia técnica de <span class="text-gray-600">Gemini 3.0</span> y <span class="text-gray-600 font-semibold">Naresh Edagotti</span> vía <span class="text-gray-600 italic font-bold">Analytics Vidhya</span>
                  </p>
             </div>
         </header>
 
-        <!-- Navigation Tabs -->
+        <!-- Navegación -->
         <nav class="flex flex-wrap gap-2 mb-12 border-b border-gray-50 pb-6" id="nav-container">
             <!-- Inyectado vía JS -->
         </nav>
 
-        <!-- Main Content Area -->
+        <!-- Área de Contenido Principal -->
         <main id="app-content" class="flex-grow relative min-h-[500px]">
-            <!-- Dynamic Content -->
+            <!-- Contenido Dinámico -->
         </main>
 
-        <!-- Footer -->
+        <!-- Pie de página -->
         <footer class="mt-20 pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center text-[10px] font-bold text-gray-400 uppercase tracking-[0.15em]">
             <div class="flex items-center gap-2">
                 <i class="ph-bold ph-bookmarks text-gray-900 text-lg"></i>
@@ -119,155 +119,170 @@
 
     </div>
 
-    <!-- Logic & Data -->
+    <!-- Lógica y Datos -->
     <script>
         const papers = [
             { 
-                id: 1, year: "2017", title: "Attention Is All You Need", authors: "Vaswani et al.", 
+                id: 1, year: "2017", title: "Attention Is All You Need", authors: "Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., & Polosukhin, I.", 
+                shortAuthors: "Vaswani et al.",
                 concept: "Arquitectura Transformer", 
-                conceptDefinition: "Arquitectura de red neuronal que abandona la recurrencia y las convoluciones en favor de mecanismos de atención. Utiliza la auto-atención (self-attention) para relacionar diferentes posiciones de una secuencia y calcular representaciones globales de entrada y salida, permitiendo una paralelización significativamente mayor durante el entrenamiento.",
+                conceptDefinition: "Arquitectura de red neuronal basada únicamente en mecanismos de atención, prescindiendo de la recurrencia. Utiliza auto-atención para calcular representaciones de entrada y salida, permitiendo paralelización masiva.",
                 category: "Arquitectura", summary: "El origen del Transformer.",
                 impact: "El hito fundacional. Eliminó las limitaciones de las RNNs y permitió el entrenamiento de modelos a una escala global antes impensable.", 
                 params: 0.065, 
-                citation: "Vaswani, A., et al. (2017). Attention is all you need. Advances in Neural Information Processing Systems." 
+                citation: "Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., & Polosukhin, I. (2017). Attention is all you need. In I. Guyon, U. V. Luxburg, S. Bengio, H. Wallach, R. Fergus, S. Vishwanathan, & R. Garnett (Eds.), Advances in Neural Information Processing Systems 30 (pp. 5998–6008). Curran Associates, Inc. https://arxiv.org/abs/1706.03762" 
             },
             { 
-                id: 2, year: "2018", title: "BERT", authors: "Devlin et al.", 
+                id: 2, year: "2018", title: "BERT", authors: "Devlin, J., Chang, M. W., Lee, K., & Toutanova, K.", 
+                shortAuthors: "Devlin et al.",
                 concept: "Representaciones Bidireccionales Profundas", 
-                conceptDefinition: "Diseñado para pre-entrenar representaciones bidireccionales profundas a partir de texto sin etiquetar mediante el condicionamiento conjunto del contexto izquierdo y derecho en todas las capas. Introdujo el objetivo de 'Modelado de Lenguaje Enmascarado' para entender la semántica contextual completa.",
+                conceptDefinition: "Modelo diseñado para pre-entrenar representaciones bidireccionales profundas condicionando conjuntamente el contexto izquierdo y derecho en todas las capas.",
                 category: "Arquitectura", summary: "Contexto bidireccional profundo.",
                 impact: "Revolucionó la comprensión del lenguaje natural, permitiendo a las máquinas captar matices contextuales complejos.", 
                 params: 0.34, 
-                citation: "Devlin, J., et al. (2018). BERT: Pre-training of deep bidirectional transformers." 
+                citation: "Devlin, J., Chang, M.-W., Lee, K., & Toutanova, K. (2018). BERT: Pre-training of deep bidirectional transformers for language understanding. arXiv. https://doi.org/10.48550/arXiv.1810.04805" 
             },
             { 
-                id: 3, year: "2020", title: "GPT-3", authors: "Brown et al. (OpenAI)", 
+                id: 3, year: "2020", title: "GPT-3", authors: "Brown, T. B., Mann, B., Ryder, N., Subbiah, M., Kaplan, J., Dhariwal, P., ... & Sutskever, I.", 
+                shortAuthors: "Brown et al.",
                 concept: "Aprendizaje Few-Shot a Escala", 
-                conceptDefinition: "Capacidad de un modelo de lenguaje masivo para realizar una tarea nueva después de ver solo unos pocos ejemplos en el prompt de entrada, sin necesidad de actualizar sus parámetros internos. Se basa en la premisa de que el razonamiento emerge naturalmente al escalar el conteo de parámetros (175B).",
+                conceptDefinition: "Capacidad de un modelo masivo para realizar una tarea nueva después de ver solo unos pocos ejemplos en el prompt, sin actualizar sus pesos internos.",
                 category: "Escala", summary: "La era de la escala masiva.",
-                impact: "Demostró que el escalamiento extremo genera capacidades emergentes de razonamiento y creatividad sin entrenamiento específico por tarea.", 
+                impact: "Demostró que el escalamiento extremo genera capacidades emergentes de razonamiento sin entrenamiento específico.", 
                 params: 175, 
-                citation: "Brown, T. B., et al. (2020). Language models are few-shot learners." 
+                citation: "Brown, T. B., Mann, B., Ryder, N., Subbiah, M., Kaplan, J., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G., Askell, A., Agarwal, S., Herbert-Voss, A., Krueger, G., Henighan, T., Child, R., Ramesh, A., Ziegler, D. M., Wu, J., Winter, C., ... Sutskever, I. (2020). Language models are few-shot learners. arXiv. https://doi.org/10.48550/arXiv.2005.14165" 
             },
             { 
-                id: 4, year: "2020", title: "T5", authors: "Raffel et al.", 
-                concept: "Marco Unificado Texto-a-Texto", 
-                conceptDefinition: "Enfoque donde cada tarea de procesamiento de lenguaje natural (traducción, clasificación, resumen) se convierte en un formato idéntico de entrada de texto y salida de texto. Esto permite aplicar el mismo modelo, función de pérdida e hiperparámetros a cualquier tarea lingüística.",
+                id: 4, year: "2020", title: "T5", authors: "Raffel, C., Shazeer, N., Roberts, A., Lee, K., Narang, S., Matena, M., ... & Liu, P. J.", 
+                shortAuthors: "Raffel et al.",
+                concept: "Marco Texto-a-Texto", 
+                conceptDefinition: "Enfoque unificado donde cada tarea de NLP se convierte en un formato idéntico de entrada y salida de texto.",
                 category: "Arquitectura", summary: "Unificación de tareas NLP.",
-                impact: "Simplificó el ecosistema de NLP al estandarizar cómo se consumen y generan datos lingüísticos.", 
+                impact: "Simplificó el ecosistema de NLP al estandarizar el consumo y generación de datos lingüísticos.", 
                 params: 11, 
-                citation: "Raffel, C., et al. (2020). Exploring the limits of transfer learning with T5." 
+                citation: "Raffel, C., Shazeer, N., Roberts, A., Lee, K., Narang, S., Matena, M., Zhou, Y., Li, W., & Liu, P. J. (2020). Exploring the limits of transfer learning with a unified text-to-text transformer. Journal of Machine Learning Research, 21(140), 1-67." 
             },
             { 
-                id: 5, year: "2020", title: "Scaling Laws", authors: "Kaplan et al.", 
+                id: 5, year: "2020", title: "Scaling Laws", authors: "Kaplan, J., McCandlish, S., Henighan, T., Brown, T. B., Chess, B., Child, R., Gray, S., Radford, A., Wu, J., & Amodei, D.", 
+                shortAuthors: "Kaplan et al.",
                 concept: "Leyes de Escala Empíricas", 
-                conceptDefinition: "Observación de relaciones de potencia (power-laws) que dictan que el rendimiento de un modelo de lenguaje mejora de forma predecible al aumentar de forma coordinada el cómputo de entrenamiento, el tamaño del dataset y el número de parámetros.",
+                conceptDefinition: "Relaciones matemáticas que describen cómo el rendimiento mejora de forma predecible al aumentar el cómputo, los datos y los parámetros.",
                 category: "Escala", summary: "Rendimiento predecible.",
-                impact: "Proporcionó la base científica para justificar el crecimiento exponencial de los parámetros en los años siguientes.", 
+                impact: "Proporcionó la base científica para justificar el crecimiento exponencial de los parámetros en la industria.", 
                 params: null, 
-                citation: "Kaplan, J., et al. (2020). Scaling laws for neural language models." 
+                citation: "Kaplan, J., McCandlish, S., Henighan, T., Brown, T. B., Chess, B., Child, R., Gray, S., Radford, A., Wu, J., & Amodei, D. (2020). Scaling laws for neural language models. arXiv. https://doi.org/10.48550/arXiv.2001.08361" 
             },
             { 
-                id: 6, year: "2020", title: "RAG", authors: "Lewis et al.", 
+                id: 6, year: "2020", title: "RAG", authors: "Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., ... & Kiela, D.", 
+                shortAuthors: "Lewis et al.",
                 concept: "Generación Aumentada por Recuperación", 
-                conceptDefinition: "Arquitectura híbrida que combina la memoria paramétrica (el conocimiento del modelo) con una memoria no paramétrica externa (un índice de documentos). El modelo recupera pasajes relevantes de fuentes externas antes de generar una respuesta para asegurar fidelidad fáctica.",
+                conceptDefinition: "Combina la memoria paramétrica con una memoria no paramétrica externa (documentos) para proporcionar respuestas precisas y verificables.",
                 category: "Aumentación", summary: "IA con conocimiento externo.",
-                impact: "Solucionó el problema del 'corte de conocimiento' y redujo las alucinaciones al anclar las respuestas en fuentes externas verificables.", 
+                impact: "Solucionó el problema del corte de conocimiento y redujo las alucinaciones al anclar las respuestas en fuentes externas.", 
                 params: 0.4, 
-                citation: "Lewis, P., et al. (2020). Retrieval-augmented generation for knowledge-intensive tasks." 
+                citation: "Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., Küttler, H., Lewis, M., Yih, W., Rocktäschel, T., Riedel, S., & Kiela, D. (2020). Retrieval-augmented generation for knowledge-intensive NLP tasks. In H. Larochelle, M. Ranzato, R. Hadsell, M. F. Balcan, & H. Lin (Eds.), Advances in Neural Information Processing Systems 33 (pp. 9459–9474). Curran Associates, Inc. https://doi.org/10.48550/arXiv.2005.11401" 
             },
             { 
-                id: 7, year: "2021", title: "LoRA", authors: "Hu et al.", 
-                concept: "Adaptación de Bajo Rango (Low-Rank)", 
-                conceptDefinition: "Método de ajuste fino eficiente que congela los pesos pre-entrenados e inyecta matrices de rango bajo entrenables en cada capa de la arquitectura. Esto permite adaptar modelos de billones de parámetros con una fracción mínima de memoria y cómputo.",
+                id: 7, year: "2021", title: "LoRA", authors: "Hu, E. J., Shen, Y., Wallis, P., Allen-Zhu, Z., Li, Y., Wang, S., Wang, L., & Chen, W.", 
+                shortAuthors: "Hu et al.",
+                concept: "Adaptación de Bajo Rango", 
+                conceptDefinition: "Inyecta matrices de bajo rango entrenables en la red, permitiendo un ajuste fino extremadamente eficiente con mínima memoria.",
                 category: "Arquitectura", summary: "Personalización de bajo coste.",
-                impact: "Democratizó el acceso a modelos gigantes al permitir su personalización en hardware de consumo doméstico.", 
+                impact: "Democratizó el acceso a modelos gigantes al permitir su personalización en hardware doméstico.", 
                 params: null, 
-                citation: "Hu, E. J., et al. (2021). LoRA: Low-rank adaptation of large language models." 
+                citation: "Hu, E. J., Shen, Y., Wallis, P., Allen-Zhu, Z., Li, Y., Wang, S., Wang, L., & Chen, W. (2021). LoRA: Low-rank adaptation of large language models. arXiv. https://doi.org/10.48550/arXiv.2106.09685" 
             },
             { 
-                id: 8, year: "2022", title: "Chain of Thought", authors: "Wei et al.", 
+                id: 8, year: "2022", title: "Chain of Thought", authors: "Wei, J., Wang, X., Schuurmans, D., Bosma, M., Chi, E., Le, Q., & Zhou, D.", 
+                shortAuthors: "Wei et al.",
                 concept: "Prompting por Cadena de Pensamiento", 
-                conceptDefinition: "Técnica de inducción que solicita al modelo generar una serie de pasos de razonamiento intermedios explícitos antes de producir la respuesta final. Esto permite al modelo descomponer problemas complejos en pasos lógicos manejables.",
+                conceptDefinition: "Solicita al modelo generar pasos de razonamiento intermedios antes de la respuesta final, mejorando el desempeño lógico.",
                 category: "Razonamiento", summary: "Pensamiento paso a paso.",
                 impact: "Desbloqueó capacidades críticas en tareas de matemáticas, lógica y resolución de problemas complejos.", 
                 params: 540, 
-                citation: "Wei, J., et al. (2022). Chain of thought prompting elicits reasoning." 
+                citation: "Wei, J., Wang, X., Schuurmans, D., Bosma, M., Chi, E., Le, Q., & Zhou, D. (2022). Chain of thought prompting elicits reasoning in large language models. arXiv. https://doi.org/10.48550/arXiv.2201.11903" 
             },
             { 
-                id: 9, year: "2022", title: "Self-Consistency", authors: "Wang et al.", 
-                concept: "Decodificación por Consistencia Propia", 
-                conceptDefinition: "Estrategia que genera múltiples caminos de razonamiento independientes para una misma pregunta y selecciona la respuesta final mediante una votación mayoritaria entre ellos, asumiendo que los caminos correctos convergen hacia la misma respuesta.",
+                id: 9, year: "2022", title: "Self-Consistency", authors: "Wang, X., Wei, J., Schuurmans, D., Le, Q., Chi, E., Narang, S., Chowdhery, A., & Zhou, D.", 
+                shortAuthors: "Wang et al.",
+                concept: "Votación por Consistencia Propia", 
+                conceptDefinition: "Genera múltiples caminos de razonamiento y elige la respuesta final mediante votación mayoritaria entre ellos.",
                 category: "Razonamiento", summary: "Fiabilidad en el razonamiento.",
-                impact: "Mejoró significativamente la robustez y precisión de las respuestas del modelo en tareas de lógica multi-paso.", 
+                impact: "Mejoró significativamente la robustez de las respuestas del modelo en tareas de lógica multi-paso.", 
                 params: null, 
-                citation: "Wang, X., et al. (2022). Self-consistency improves CoT reasoning." 
+                citation: "Wang, X., Wei, J., Schuurmans, D., Le, Q., Chi, E., Narang, S., Chowdhery, A., & Zhou, D. (2022). Self-consistency improves chain of thought reasoning in language models. arXiv. https://doi.org/10.48550/arXiv.2203.11171" 
             },
             { 
-                id: 10, year: "2022", title: "Induction Heads", authors: "Olsson et al.", 
+                id: 10, year: "2022", title: "Induction Heads", authors: "Olsson, C., Elhage, N., Nanda, N., Joseph, N., DasSarma, N., Henighan, T., ... & Kaplan, J.", 
+                shortAuthors: "Olsson et al.",
                 concept: "Interpretabilidad Mecánica", 
-                conceptDefinition: "Identificación de circuitos neuronales específicos en el Transformer que son responsables del copiado de patrones y del aprendizaje en contexto durante la inferencia, permitiendo que el modelo maneje secuencias de longitud arbitraria de forma adaptativa.",
+                conceptDefinition: "Identificación de circuitos neuronales responsables del copiado de patrones y el aprendizaje en contexto sin actualizar pesos.",
                 category: "Análisis", summary: "Criptografía del aprendizaje.",
-                impact: "Proporcionó una explicación estructural de cómo los LLMs logran aprender a partir de un prompt sin actualizar sus pesos.", 
+                impact: "Proporcionó una explicación estructural de cómo los LLMs aprenden 'al vuelo' a partir de los datos del prompt.", 
                 params: null, 
-                citation: "Olsson, C., et al. (2022). In-context learning and induction heads." 
+                citation: "Olsson, C., Elhage, N., Nanda, N., Joseph, N., DasSarma, N., Henighan, T., Mann, B., Askell, A., Bai, Y., Chen, A., Conerly, T., Dasgiupta, S., Drain, D., Fort, S., Ganguli, S., Hernandez, D., Jones, T., Hubinger, E., Kernion, J., ... Kaplan, J. (2022). In-context learning and induction heads. arXiv. https://doi.org/10.48550/arXiv.2209.11895" 
             },
             { 
-                id: 11, year: "2022", title: "InstructGPT", authors: "Ouyang et al.", 
+                id: 11, year: "2022", title: "InstructGPT", authors: "Ouyang, L., Wu, J., Jiang, X., Almeida, D., Wainwright, C. L., Mishkin, P., ... & Lowe, R.", 
+                shortAuthors: "Ouyang et al.",
                 concept: "Alineación mediante RLHF", 
-                conceptDefinition: "Alineación de modelos con la intención humana mediante aprendizaje por refuerzo a partir de retroalimentación (rankings y comparaciones). Esto entrena al modelo para ser útil, honesto e inofensivo, siguiendo instrucciones de forma precisa.",
+                conceptDefinition: "Alinea modelos con la intención humana mediante aprendizaje por refuerzo a partir de retroalimentación (rankings humanos).",
                 category: "Alineación", summary: "IA útil y segura.",
                 impact: "Permitió que los modelos pasaran de predecir texto a actuar como asistentes útiles y conversacionales (Base de ChatGPT).", 
                 params: 175, 
-                citation: "Ouyang, L., et al. (2022). Training language models to follow instructions." 
+                citation: "Ouyang, L., Wu, J., Jiang, X., Almeida, D., Wainwright, C. L., Mishkin, P., Zhang, C., Agarwal, S., Slama, K., Ray, A., Schulman, J., Hilton, J., Kelton, F., Miller, L., Simens, M., Askell, A., Welinder, P., Lowe, J. W., Williams, R. J., & Lowe, R. (2022). Training language models to follow instructions with human feedback. arXiv. https://doi.org/10.48550/arXiv.2203.02155" 
             },
             { 
-                id: 12, year: "2023", title: "Toolformer", authors: "Schick et al. (Meta)", 
+                id: 12, year: "2023", title: "Toolformer", authors: "Schick, T., Dwivedi-Yu, J., Dessì, R., Raileanu, R., Lomeli, M., ... & Scialom, T.", 
+                shortAuthors: "Schick et al.",
                 concept: "Auto-aprendizaje del uso de Herramientas", 
-                conceptDefinition: "Modelo entrenado de forma auto-supervisada para decidir autónomamente qué herramientas externas (APIs como buscadores o calculadoras) usar, cuándo llamarlas y cómo integrar sus resultados en el flujo de texto generado.",
+                conceptDefinition: "Modelo entrenado para decidir autónomamente qué herramientas externas (APIs) usar, cuándo llamarlas e integrar sus respuestas.",
                 category: "Aumentación", summary: "Uso autónomo de APIs.",
-                impact: "Inició el camino hacia los 'agentes de IA' capaces de interactuar con el mundo digital externo (calculadoras, buscadores).", 
+                impact: "Abrió el camino hacia agentes capaces de interactuar proactivamente con buscadores y calculadoras.", 
                 params: 6.7, 
-                citation: "Schick, T., et al. (2023). Toolformer: LMs can teach themselves to use tools." 
+                citation: "Schick, T., Dwivedi-Yu, J., Dessì, R., Raileanu, R., Lomeli, M., Zettlemoyer, L., Desmaison, A., Scialom, T., & Bakhtin, A. (2023). Toolformer: Language models can teach themselves to use tools. arXiv. https://doi.org/10.48550/arXiv.2302.04761" 
             },
             { 
-                id: 13, year: "2022", title: "ColBERTv2", authors: "Santhanam et al.", 
-                concept: "Arquitectura de Interacción Tardía", 
-                conceptDefinition: "Modelo de recuperación eficiente que utiliza representaciones multi-vectoriales a nivel de token para calcular la relevancia entre consulta y documento. Optimiza el almacenamiento y la velocidad de búsqueda mediante compresión residual agresiva.",
+                id: 13, year: "2022", title: "ColBERTv2", authors: "Santhanam, K., Khattab, O., Saad-Falcon, J., Potts, C., & Zaharia, M.", 
+                shortAuthors: "Santhanam et al.",
+                concept: "Interacción Tardía Eficiente", 
+                conceptDefinition: "Arquitectura de recuperación multi-vectorial que optimiza la velocidad y precisión en colecciones de billones de documentos.",
                 category: "Aumentación", summary: "Búsqueda veloz y precisa.",
-                impact: "Hizo viable el uso de sistemas RAG a escala industrial con colecciones de billones de documentos.", 
+                impact: "Hizo viable el uso de sistemas RAG a escala industrial masiva con alta eficiencia.", 
                 params: 0.11, 
-                citation: "Santhanam, K., et al. (2021). ColBERTv2: Effective and efficient retrieval." 
+                citation: "Santhanam, K., Khattab, O., Saad-Falcon, J., Potts, C., & Zaharia, M. (2021). ColBERTv2: Effective and efficient retrieval via lightweight late interaction. arXiv. https://doi.org/10.48550/arXiv.2112.01488" 
             },
             { 
-                id: 14, year: "2023", title: "LLM-as-a-Judge", authors: "Zheng et al.", 
+                id: 14, year: "2023", title: "LLM-as-a-Judge", authors: "Zheng, L., Chiang, W. L., Sheng, Y., Zhuang, S., Wu, Z., Zhuang, Y., ... & Stoica, I.", 
+                shortAuthors: "Zheng et al.",
                 concept: "Evaluación Escalable Basada en Modelos", 
-                conceptDefinition: "Marco de trabajo que utiliza un modelo de lenguaje fuerte (como GPT-4) para actuar como evaluador automático de otros modelos en preguntas abiertas y complejas, logrando una alta correlación con juicios humanos.",
+                conceptDefinition: "Uso de un modelo de lenguaje fuerte para evaluar automáticamente el desempeño de otros modelos en preguntas abiertas.",
                 category: "Evaluación", summary: "IA evaluando a otra IA.",
                 impact: "Resolvió el cuello de botella de la evaluación humana, permitiendo acelerar el ciclo de mejora de nuevos modelos.", 
                 params: null, 
-                citation: "Zheng, L., et al. (2023). Judging LLM-as-a-judge with MT-bench." 
+                citation: "Zheng, L., Chiang, W. L., Sheng, Y., Zhuang, S., Wu, Z., Zhuang, Y., Lin, Z., Li, Z., Li, D., Xing, E. P., Zhang, H., Stoica, I., & Abbeel, P. (2023). Judging LLM-as-a-judge with MT-bench and chatbot arena. arXiv. https://doi.org/10.48550/arXiv.2306.05685" 
             },
             { 
-                id: 15, year: "2025", title: "DeepSeek-R1", authors: "DeepSeek AI", 
+                id: 15, year: "2025", title: "DeepSeek-R1", authors: "DeepSeek-AI", 
+                shortAuthors: "DeepSeek-AI",
                 concept: "Razonamiento por Refuerzo a Gran Escala", 
-                conceptDefinition: "Incentivación de capacidades de razonamiento reflexivo paso a paso mediante aprendizaje por refuerzo puro, permitiendo que el modelo genere de forma nativa cadenas de pensamiento extensas para resolver tareas de alta complejidad.",
+                conceptDefinition: "Técnica que incentiva el razonamiento reflexivo nativo mediante aprendizaje por refuerzo masivo sin depender solo de datos supervisados.",
                 category: "Razonamiento", summary: "Razonamiento puro y abierto.",
                 impact: "Estado del arte actual en razonamiento abierto, logrando paridad con modelos propietarios mediante optimización algorítmica.", 
                 params: 671, 
-                citation: "DeepSeek-AI. (2025). DeepSeek-R1: Incentivizing reasoning capability." 
+                citation: "DeepSeek-AI. (2025). DeepSeek-R1: Incentivizing reasoning capability in LLMs via reinforcement learning. arXiv. https://doi.org/10.48550/arXiv.2501.12948" 
             }
         ];
 
         const glossary = [
             { term: "Lingüística Computacional", def: "Campo interdisciplinario enfocado en el modelado computacional del lenguaje natural desde una perspectiva lingüística y estadística." },
             { term: "Modelos Fundacionales", def: "Modelos base entrenados en datasets masivos que pueden adaptarse a múltiples tareas posteriores con mínima especialización." },
-            { term: "Tokenización", def: "Proceso de dividir el texto en unidades mínimas (palabras o caracteres) convertidas en números para ser procesadas por el modelo." },
-            { term: "Inferencia", def: "Proceso mediante el cual un modelo entrenado genera una predicción o salida basándose en una entrada proporcionada." },
+            { term: "Tokenización", def: "Proceso de convertir texto en unidades mínimas (palabras o caracteres) convertidas en números para ser procesadas por el modelo." },
+            { term: "Inferencia", def: "Proceso donde el modelo genera una predicción o salida basándose en una entrada proporcionada por el usuario." },
             { term: "Prompting", def: "Interacción mediante lenguaje natural para guiar el comportamiento y las respuestas de un modelo fundacional." },
-            { term: "Habilidades Emergentes", def: "Capacidades (como razonar o traducir) que aparecen en modelos de lenguaje solo cuando estos alcanzan un tamaño de parámetros crítico." },
+            { term: "Habilidades Emergentes", def: "Capacidades (como razonar) que aparecen en modelos de lenguaje solo cuando alcanzan un tamaño de parámetros crítico." },
             { term: "RLHF", def: "Reinforcement Learning from Human Feedback: Alineación del modelo basada en preferencias y valores humanos." },
-            { term: "Alucinación", def: "Fenómeno donde un modelo genera información que parece coherente pero es fácticamente incorrecta o no tiene base en los datos." }
+            { term: "Alucinación", def: "Fenómeno donde un modelo genera información coherente pero fácticamente incorrecta." }
         ];
 
         const reportCitation = "Analytics Vidhya. (2025). 15 Papers That Defined NLP & LLMs (2017–2025). Compilado por Naresh Edagotti.";
@@ -321,7 +336,7 @@
                                         <span class="text-[8px] font-bold text-gray-400 uppercase">${p.category}</span>
                                     </div>
                                     <h3 class="text-sm font-semibold text-gray-800 leading-tight mb-1">${p.title}</h3>
-                                    <p class="text-[10px] text-gray-500 font-medium mb-1">${p.authors} (${p.year})</p>
+                                    <p class="text-[10px] text-gray-500 font-medium mb-1">${p.shortAuthors} (${p.year})</p>
                                     <p class="text-[10px] text-gray-400 italic line-clamp-1">— ${p.summary}</p>
                                 </div>
                             `).join('')}
@@ -335,7 +350,7 @@
                                     <span class="text-3xl font-light text-gray-100">/ ${selected.year}</span>
                                 </div>
                                 <h2 class="text-3xl md:text-4xl font-bold leading-tight mb-2 text-gray-900">${selected.title}</h2>
-                                <h3 class="text-base font-medium text-gray-400 mb-8 max-w-xl italic">${selected.authors} (${selected.year})</h3>
+                                <h3 class="text-base font-medium text-gray-400 mb-8 max-w-xl italic">${selected.shortAuthors} (${selected.year})</h3>
                                 
                                 <div class="space-y-8 border-t border-gray-50 pt-8 mb-8">
                                     <div>
@@ -353,7 +368,7 @@
                             </div>
                             <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100 mt-6">
                                 <p class="font-mono text-[9px] text-gray-400 mb-4 leading-relaxed line-clamp-1 italic italic italic italic">${selected.citation}</p>
-                                <button onclick="copyToClipboard('${selected.citation.replace(/'/g, "\\'")}')" class="w-full py-3.5 bg-gray-900 text-white rounded-xl text-[10px] font-bold hover:bg-black transition-all uppercase tracking-[0.2em]">Copiar Cita APA 7</button>
+                                <button onclick="copyToClipboard('${selected.citation.replace(/'/g, "\\'")}')" class="w-full py-3.5 bg-gray-900 text-white rounded-xl text-[10px] font-bold hover:bg-black transition-all uppercase tracking-[0.2em]">Copiar Referencia APA 7</button>
                             </div>
                         </div>
                     </div>
@@ -366,50 +381,62 @@
             container.innerHTML = `
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
                     <div class="lg:col-span-4 space-y-6 lg:sticky lg:top-4">
-                        <h2 class="text-3xl font-bold text-gray-900 tracking-tight">Métricas de Escala</h2>
-                        <p class="text-sm font-medium text-gray-400 leading-relaxed text-balance">
-                            Este gráfico visualiza el crecimiento logarítmico de parámetros (billones) desde 2017. La escala define las capacidades de los modelos fundacionales.
+                        <h2 class="text-4xl font-bold text-gray-900 tracking-tighter uppercase leading-none">Métricas de Escala</h2>
+                        <p class="text-sm font-medium text-gray-500 leading-relaxed text-balance">
+                            Este gráfico visualiza la tensión histórica en el campo: el **Escalamiento Masivo** (picos de parámetros) frente a la **Eficiencia Arquitectónica** (valles de parámetros).
                         </p>
-                        <div class="p-6 bg-gray-50 rounded-2xl border border-gray-100 space-y-4 shadow-sm opacity-60">
-                             <p class="text-[10px] text-gray-400 italic">Basado en Scaling Laws de Kaplan et al. (2020) & Analytics Vidhya.</p>
-                        </div>
                     </div>
-                    <div class="lg:col-span-8 space-y-8">
-                        <div class="modern-card p-8 rounded-[2rem] bg-white h-[450px] flex items-center justify-center">
-                            <div class="chart-container"><canvas id="scaleChart"></canvas></div>
+                    <div class="lg:col-span-8 space-y-10">
+                        <div class="modern-card p-10 rounded-[3rem] bg-white h-[500px] flex flex-col items-center justify-center relative overflow-hidden">
+                            <div class="chart-container">
+                                <canvas id="scaleChart"></canvas>
+                            </div>
                         </div>
                         
-                        <div class="px-6 py-8 bg-gray-50 rounded-[2rem] border border-gray-100 fade-in">
-                            <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                <i class="ph-bold ph-question text-gray-400"></i> ¿Por qué hay caídas?
+                        <div class="px-8 py-10 bg-gray-900 text-white rounded-[2.5rem] border-4 border-gray-100 shadow-2xl fade-in relative">
+                            <div class="absolute -top-4 -right-4 bg-white text-gray-900 w-12 h-12 flex items-center justify-center rounded-full font-black text-2xl border-4 border-gray-900">?</div>
+                            <h3 class="text-2xl font-bold mb-4 flex items-center gap-3">
+                                <i class="ph-bold ph-chart-line-down text-gray-400"></i> ¿Por qué hay caídas?
                             </h3>
-                            <p class="text-sm font-medium text-gray-600 leading-relaxed mb-6">
-                                Papers como <strong>RAG (Lewis et al., 2020)</strong> o <strong>ColBERTv2 (Santhanam et al., 2021)</strong> no buscan modelos más grandes, sino mejores métodos para usar conocimiento externo, logrando inteligencia superior con modelos más pequeños y rápidos.
+                            <p class="text-base font-medium text-gray-300 leading-relaxed mb-8">
+                                Papers como <strong>RAG (Lewis et al., 2020)</strong> o <strong>ColBERTv2 (Santhanam et al., 2021)</strong> no buscan modelos con cerebros más grandes (más parámetros), sino mejores métodos para usar conocimiento externo. 
+                                <br><br>
+                                Estos hitos demuestran que es posible lograr <strong>inteligencia superior</strong> con modelos más pequeños y rápidos al integrar datos externos, rompiendo la dependencia exclusiva de la escala.
                             </p>
-                            <p class="text-[11px] font-semibold text-gray-400 uppercase tracking-widest flex items-center gap-2">
-                                <i class="ph-bold ph-link"></i> Fuente: Kaplan et al. (2020) & Naresh Edagotti.
-                            </p>
+                            <div class="flex flex-col md:flex-row justify-between items-start md:items-center pt-6 border-t border-gray-800 gap-4">
+                                <p class="text-[11px] font-semibold text-gray-500 uppercase tracking-[0.2em] flex items-center gap-2">
+                                    <i class="ph-bold ph-link-simple"></i> Fuentes Principales
+                                </p>
+                                <span class="bg-gray-800 text-gray-300 px-4 py-1.5 rounded-full text-[10px] font-bold border border-gray-700">
+                                    Kaplan et al. (2020) & Naresh Edagotti
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
             `;
             setTimeout(() => {
                 const ctx = document.getElementById('scaleChart').getContext('2d');
+                const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+                gradient.addColorStop(0, 'rgba(26, 26, 26, 0.08)');
+                gradient.addColorStop(1, 'rgba(26, 26, 26, 0.00)');
+
                 new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: chartData.map(p => `${p.title} (${p.authors} ${p.year})`),
+                        labels: chartData.map(p => `${p.title} (${p.shortAuthors} ${p.year})`),
                         datasets: [{
                             label: 'Billones de Parámetros',
                             data: chartData.map(p => p.params),
                             borderColor: '#1a1a1a',
-                            borderWidth: 1.5,
+                            borderWidth: 2.5,
                             pointBackgroundColor: '#ffffff',
                             pointBorderColor: '#1a1a1a',
+                            pointBorderWidth: 2,
                             pointRadius: 6,
                             fill: true,
-                            backgroundColor: 'rgba(26, 26, 26, 0.01)',
-                            tension: 0.3
+                            backgroundColor: gradient,
+                            tension: 0.35
                         }]
                     },
                     options: {
@@ -417,22 +444,15 @@
                         scales: {
                             y: { 
                                 type: 'logarithmic', 
-                                grid: { color: '#fcfcfc' }, 
-                                ticks: { font: { size: 9 }, callback: function(v) { return v + "B"; } } 
+                                grid: { color: '#f8f9fa' }, 
+                                ticks: { font: { size: 9, weight: 'bold' }, color: '#9ca3af', callback: function(v) { return v + "B"; } } 
                             },
-                            x: { grid: { display: false }, ticks: { font: { size: 8 } } }
-                        },
-                        plugins: { 
-                            legend: { display: false },
-                            tooltip: {
-                                backgroundColor: '#1a1a1a',
-                                titleFont: { size: 12, weight: 700 },
-                                bodyFont: { size: 11 },
-                                padding: 12,
-                                cornerRadius: 8,
-                                callbacks: { label: (c) => `${c.raw} Billones de Parámetros` }
+                            x: { 
+                                grid: { display: false }, 
+                                ticks: { font: { size: 8, weight: 'bold' }, color: '#9ca3af', maxRotation: 45, minRotation: 45 } 
                             }
-                        }
+                        },
+                        plugins: { legend: { display: false } }
                     }
                 });
             }, 50);
@@ -460,12 +480,12 @@
                         <button onclick="copyToClipboard('${reportCitation}')" class="px-6 py-2 border border-gray-100 rounded-full text-[10px] font-bold hover:border-black uppercase tracking-widest">Copiar Fuente Principal</button>
                     </div>
                     <div class="space-y-4">
-                        <h3 class="text-xl font-bold text-gray-900 px-4 mb-6 tracking-tight">Bibliografía Académica (APA 7)</h3>
+                        <h3 class="text-xl font-bold text-gray-900 px-4 mb-6 tracking-tight">Bibliografía Académica Completa (APA 7)</h3>
                         ${papers.map(p => `
                             <div class="modern-card p-6 rounded-2xl flex flex-col md:flex-row gap-6 items-start justify-between">
                                 <div class="flex-grow">
                                     <span class="text-[8px] font-bold text-gray-200 uppercase mb-1 block">${p.year} / ID:${p.id}</span>
-                                    <p class="font-serif text-sm text-gray-700 leading-relaxed">${p.citation}</p>
+                                    <p class="font-serif text-sm text-gray-700 leading-relaxed italic">${p.citation}</p>
                                 </div>
                                 <button onclick="copyToClipboard('${p.citation.replace(/'/g, "\\'")}')" class="p-3 text-gray-300 hover:text-black transition-colors"><i class="ph-bold ph-copy text-xl"></i></button>
                             </div>
